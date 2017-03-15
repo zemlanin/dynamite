@@ -1,11 +1,16 @@
 var path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  entry: './main.js',
+  entry: {
+    main: './main.js',
+    pain: './pain.js',
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
+    chunkFilename: '[id]-[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: 'dist/'
+    publicPath: 'dist/',
   },
   module: {
     rules: [{
@@ -19,5 +24,12 @@ module.exports = {
         }
       }]
     }]
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['main', 'pain'],
+      async: true,
+      minChunks: (module, count) => /node_modules/.test(module.userRequest),
+    }),
+  ],
 }

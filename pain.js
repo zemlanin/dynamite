@@ -5,9 +5,9 @@ const lazyBaz = (filename) => (n) => (
 )
 
 baz.register({
-  a: lazyBaz(() => import('./a.js')),
-  b: lazyBaz(() => import('./b.js')),
-  c: lazyBaz(() => import('./c.js')),
+  // a: lazyBaz(() => import('./a')),
+  b: lazyBaz(() => import('./b')),
+  // c: lazyBaz(() => import('./c')),
 })
 
 baz.refresh(document.body)
